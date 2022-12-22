@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
+import GiphyDisplay from './components/GiphyDisplay';
 
 function App() {
+  const [giphyData, setGiphyData] = useState({})
+  useEffect(() => {
+    const makeApiCall = async () => {
+      const giphyUrl = 'https://api.giphy.com/v1/gifs/random?api_key=ZAYJhs5msvR4TT6aYtg5fUTe0Vje5S6c&tag=&rating=g'
+      const res = await fetch(giphyUrl);
+      const json = await res.json();
+
+      setGiphyData(json);
+    }
+    makeApiCall();
+  }, []);
+
+  const giphyArray = giphyData.data
+  
+
+  
+
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GiphyDisplay giphy={giphyArray} 
+      
+      
+      />
+
     </div>
   );
 }
